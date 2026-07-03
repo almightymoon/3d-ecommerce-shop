@@ -1,53 +1,55 @@
-# Shop3D - Premium 3D E-commerce Experience
+# NovaMart — 3D E-commerce Experience
 
-A cutting-edge, high-performance 3D shopping platform built with **Next.js 14**, **React Three Fiber**, and **Three.js**.
+Immersive 3D shopping platform built with **Next.js 14**, **React Three Fiber**, and **Three.js**. Forked from [Shop3D](https://github.com/NZLouislu/Shop3D) and enhanced with a premium dark cyberpunk UI.
 
-🚀 **Live Demo:** [shop3d.nzlouis.com](https://shop3d.nzlouis.com)
+[![CI](https://github.com/almightymoon/3d-ecommerce-shop/actions/workflows/ci.yml/badge.svg)](https://github.com/almightymoon/3d-ecommerce-shop/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-## ✨ Features
+## Features
 
-- **3D Interactive Viewer**: Full 360° product exploration with smooth orbit controls and high-performance WebGL rendering.
-- **Tmall-Inspired UI**: A clean, premium, and familiar shopping interface (inspired by Tmall/Taobao) optimized for high conversion.
-- **Responsive Design**: Seamless experience across mobile (swipeable kategorien), iPad, and ultra-wide desktops.
-- **Dynamic Media Gallery**: Smart switching between 3D interactive models and high-definition 2D product photos.
-- **SEO Optimized**: Built with Next.js App Router, supporting Server-Side Generation (SSG) for lightning-fast page loads.
-- **Premium Glassmorphism**: Modern Navbar with backdrop-filter effects for a sophisticated look.
+- **WebGL hero scene** — Floating 3D product with sparkles, orbit controls, and contact shadows
+- **360° product viewer** — Full interactive GLB exploration on product pages
+- **Premium dark UI** — Glass navbar, trust bar, glowing product cards, cyberpunk palette
+- **Responsive layout** — Mobile, tablet, and desktop optimized
+- **Docker ready** — Multi-stage standalone Next.js container
+- **CI/CD** — GitHub Actions lint + production build
 
-## 🛠 Tech Stack
+## Tech Stack
 
-- **Framework**: [Next.js 14](https://nextjs.org/) (App Router)
-- **3D Engine**: [Three.js](https://threejs.org/)
-- **React 3D**: [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber) & [@react-three/drei](https://github.com/pmndrs/drei)
-- **Styling**: CSS Modules
-- **Icons**: Lucide React
-- **Type Safety**: TypeScript
+| Layer | Stack |
+|-------|-------|
+| Framework | Next.js 14 (App Router) |
+| 3D | Three.js, React Three Fiber, Drei |
+| Styling | CSS Modules, glassmorphism |
+| Language | TypeScript |
+| Deploy | Docker, Vercel-compatible |
 
-## 🚀 Getting Started
-
-First, install the dependencies:
+## Quick Start
 
 ```bash
 npm install
+npm run dev          # http://localhost:3000
 ```
 
-Then, run the development server:
+### Docker
 
 ```bash
-npm run dev
+docker compose up --build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-## 📦 Deployment
-
-This project is optimized for deployment on **Vercel**. To build the production bundle:
-
-```bash
-npm run build
+```
+src/
+├── components/     # HeroScene, HeroBanner, TrustBar, ThreeViewer
+├── app/            # Next.js App Router pages
+└── styles/         # Dark theme CSS modules
 ```
 
-The site is configured to be hosted at [shop3d.nzlouis.com](https://shop3d.nzlouis.com).
+## Enhancements
 
-## 📄 License
+See [ENHANCEMENTS.md](./ENHANCEMENTS.md) for the full list of custom improvements over upstream.
 
-This project is created by [NZLouis](https://www.nzlouis.com).
+## Author
+
+Built by [Moon](https://github.com/almightymoon) · Based on [NZLouislu/Shop3D](https://github.com/NZLouislu/Shop3D)
