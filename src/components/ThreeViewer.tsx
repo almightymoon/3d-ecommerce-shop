@@ -1,77 +1,50 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, useGLTF, Stage, PresentationControls } from '@react-three/drei';
-import { Suspense } from 'react';
+import { OrbitControls, useGLTF, Stage, PresentationControls, Sparkles, ContactShadows } from '@react-three/drei';
+import { Suspense, useState, useEffect } from 'react';
 import Image from 'next/image';
 
-import { useState, useEffect } from 'react';
-
 function Model({ url, onLoaded }: { url: string; onLoaded: () => void }) {
-    const { scene } = useGLTF(url);
-    useEffect(() => {
-        if (scene) {
-            onLoaded();
-        }
-    }, [scene, onLoaded]);
-    return <primitive object={scene} />;
+  const { scene } = useGLTF(url);
+  useEffect(() => { if (scene) onLoaded(); }, [scene, onLoaded]);
+  return <primitive object={scene} />;
 }
 
 function Loader({ previewImage }: { previewImage?: string }) {
-    return (
-        <div style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            zIndex: 10,
-            pointerEvents: 'none'
-        }} className="skeleton">
-            {previewImage && (
-                <div style={{ position: 'relative', width: '80%', height: '80%', opacity: 0.5 }}>
-                    <Image
-                        src={previewImage}
-                        alt="Loading..."
-                        fill
-                        style={{ objectFit: 'contain', filter: 'grayscale(100%)' }}
-                    />
-                </div>
-            )}
+  return (
+    <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }} className="skeleton">
+      {previewImage && (
+        <div style={{ position: 'relative', width: '70%', height: '70%', opacity: 0.35 }}>
+          <Image src={previewImage} alt="Loading" fill style={{ objectFit: 'contain' }} />
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 export default function ThreeViewer({ modelUrl, previewImage }: { modelUrl: string; previewImage?: string }) {
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    return (
-        <div style={{
-            width: '100%',
-            height: '100%',
-            background: 'radial-gradient(circle at 30% 30%, rgba(0,229,255,0.12) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(168,85,247,0.15) 0%, transparent 50%), linear-gradient(160deg, #0f1629 0%, #070b14 100%)',
-            borderRadius: '16px',
-            cursor: 'grab',
-            position: 'relative',
-            overflow: 'hidden',
-            border: '1px solid rgba(255,255,255,0.08)'
-        }}>
-            {!isLoaded && <Loader previewImage={previewImage} />}
-            <Suspense fallback={null}>
-                <Canvas
-                    dpr={[1, 2]}
-                    camera={{ fov: 45 }}
-                    gl={{ antialias: true, powerPreference: "high-performance", alpha: true }}
-                    style={{ position: 'absolute', inset: 0, opacity: isLoaded ? 1 : 0, transition: 'opacity 0.3s ease-in' }}
-                >
-                    <PresentationControls speed={1.5} global zoom={0.5} polar={[-0.1, Math.PI / 4]}>
-                        <Stage environment="night" intensity={0.8} shadows={false}>
-                            <Model url={modelUrl} onLoaded={() => setIsLoaded(true)} />
-                        </Stage>
-                    </PresentationControls>
-                    <OrbitControls makeDefault autoRotate autoRotateSpeed={1.2} />
-                </Canvas>
-            </Suspense>
-        </div>
-    );
+  const [isLoaded, setIsLoaded] = useState(false);
+  return (
+    <div style={{
+      width: '100%', height: '100%',
+      background: 'radial-gradient(circle at 40% 30%, rgba(34,211,238,0.1), transparent 55%), radial-gradient(circle at 70% 70%, rgba(192,132,252,0.12), transparent 50%), #0f172a',
+      cursor: 'grab', position: 'relative', overflow: 'hidden',
+    }}>
+      {!isLoaded && <Loader previewImage={previewImage} />}
+      <Suspense fallback={null}>
+        <Canvas dpr={[1, 2]} camera={{ fov: 42 }} gl={{ antialias: true, alpha: true }}
+          style={{ position: 'absolute', inset: 0, opacity: isLoaded ? 1 : 0, transition: 'opacity 0.5s ease' }}>
+          <PresentationControls speed={1.5} global zoom={0.6} polar={[-0.05, Math.PI / 4]}>
+            <Stage environment="city" intensity={0.9} shadows="contact" adjustCamera={1.1}>
+              <Model url={modelUrl} onLoaded={() => setIsLoaded(true)} />
+            </Stage>
+          </PresentationControls>
+          <ContactShadows opacity={0.45} scale={10} blur={2.5} far={4} color="#000000" />
+          <Sparkles count={40} scale={5} size={1.5} speed={0.3} color="#22d3ee" />
+          <OrbitControls makeDefault autoRotate autoRotateSpeed={0.9} enablePan={false} />
+        </Canvas>
+      </Suspense>
+    </div>
+  );
 }

@@ -1,91 +1,24 @@
-.wrapper {
-    padding: 100px 0;
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
+.wrapper { padding: 2rem 0 4rem; max-width: 1000px; margin: 0 auto; animation: fade-up 0.6s ease-out; }
+.header { text-align: center; margin-bottom: 2.5rem; }
 .backLink {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    color: #888;
-    text-decoration: none;
-    margin-bottom: 1.5rem;
-    transition: color 0.2s;
+  display: inline-flex; align-items: center; gap: 0.5rem; color: var(--muted);
+  text-decoration: none; margin-bottom: 1.25rem; font-size: 0.9rem; transition: color 0.2s;
 }
-
-.backLink:hover {
-    color: var(--primary);
-}
-
-.title {
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #1a1a1a;
-    margin-bottom: 0.5rem;
-    letter-spacing: -1px;
-}
-
-.subtitle {
-    font-size: 1.1rem;
-    color: #666;
-}
-
+.backLink:hover { color: var(--primary); }
+.title { font-size: clamp(1.75rem, 4vw, 2.75rem); font-weight: 800; letter-spacing: -0.03em; margin-bottom: 0.5rem; }
+.subtitle { color: var(--muted); font-size: 1.05rem; }
 .playerContainer {
-    width: 100%;
-    margin-bottom: 3rem;
-    background: #000;
-    border-radius: 20px;
+  width: 100%; margin-bottom: 2rem; border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--border); box-shadow: 0 32px 64px rgba(0,0,0,0.4), 0 0 60px var(--glow-purple);
 }
-
-.info {
-    display: grid;
-    gap: 2rem;
-}
-
 .infoCard {
-    background: #ffffff;
-    padding: 2rem;
-    border-radius: 20px;
-    border: 1px solid #eee;
+  padding: 2rem; border-radius: var(--radius-md);
+  background: var(--glass); border: 1px solid var(--border); backdrop-filter: blur(12px);
 }
-
-.infoCard h3 {
-    font-size: 1.3rem;
-    margin-bottom: 1rem;
-    color: #1a1a1a;
-}
-
-.infoCard p {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
+.infoCard h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; }
+.infoCard p { color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
 .command {
-    background: #f8f8f8;
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid #eee;
+  background: rgba(0,0,0,0.35); padding: 1rem 1.25rem; border-radius: 12px;
+  border: 1px solid var(--border); overflow-x: auto;
 }
-
-.command code {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 0.9rem;
-    color: var(--primary);
-}
-
-@media (max-width: 768px) {
-    .wrapper {
-        padding: 60px 20px;
-    }
-
-    .title {
-        font-size: 1.8rem;
-    }
-}
+.command code { font-family: var(--font-geist-mono, monospace); font-size: 0.85rem; color: var(--primary); }

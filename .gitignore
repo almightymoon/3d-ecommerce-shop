@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+dist
+.env*.local
+*.log
+.DS_Store
+build_error*.txt
+build_log.txt

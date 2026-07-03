@@ -1,55 +1,103 @@
 :root {
-  --background: #070b14;
-  --surface: #0f1629;
-  --surface-elevated: #151d33;
-  --foreground: #e8edf7;
-  --muted: #8b9bb8;
-  --primary: #00e5ff;
-  --accent: #a855f7;
-  --accent-glow: rgba(168, 85, 247, 0.35);
-  --primary-glow: rgba(0, 229, 255, 0.25);
-  --border: rgba(255, 255, 255, 0.08);
-  --accent-bg: rgba(0, 229, 255, 0.08);
+  --background: #030712;
+  --surface: rgba(15, 23, 42, 0.72);
+  --surface-solid: #0f172a;
+  --surface-elevated: #1e293b;
+  --foreground: #f8fafc;
+  --muted: #94a3b8;
+  --primary: #22d3ee;
+  --primary-dim: #0891b2;
+  --accent: #c084fc;
+  --accent-hot: #f472b6;
+  --border: rgba(148, 163, 184, 0.12);
+  --glow-cyan: rgba(34, 211, 238, 0.35);
+  --glow-purple: rgba(192, 132, 252, 0.25);
+  --glass: rgba(15, 23, 42, 0.55);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
 }
 
-* { box-sizing: border-box; padding: 0; margin: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  min-height: 100%;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background-image:
-    radial-gradient(ellipse 80% 50% at 50% -20%, var(--primary-glow), transparent),
-    radial-gradient(ellipse 60% 40% at 100% 0%, var(--accent-glow), transparent);
-  background-attachment: fixed;
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-.container { max-width: 1200px; margin: 0 auto; padding: 1rem; }
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 90% 60% at 50% -30%, var(--glow-cyan), transparent 55%),
+    radial-gradient(ellipse 50% 40% at 100% 10%, var(--glow-purple), transparent 50%),
+    radial-gradient(ellipse 40% 30% at 0% 80%, rgba(244, 114, 182, 0.12), transparent 50%),
+    var(--background);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+}
+
+.container { max-width: 1240px; margin: 0 auto; padding: 0 1.25rem; }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-  color: #070b14;
-  padding: 0.85rem 2rem;
+  background: linear-gradient(135deg, var(--primary) 0%, #818cf8 50%, var(--accent) 100%);
+  color: #030712;
+  padding: 0.9rem 1.75rem;
   border-radius: 999px;
   font-weight: 700;
+  font-size: 0.95rem;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 0 40px var(--glow-cyan);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 60px var(--glow-cyan), 0 0 30px var(--glow-purple);
 }
 
 .btn-secondary {
-  background: transparent;
-  color: var(--primary);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  color: var(--foreground);
   border: 1px solid var(--border);
-  padding: 0.85rem 2rem;
+  padding: 0.9rem 1.75rem;
   border-radius: 999px;
   font-weight: 600;
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: rgba(34, 211, 238, 0.4);
+  background: rgba(34, 211, 238, 0.08);
 }
 
 @keyframes skeleton-loading {
@@ -58,12 +106,22 @@ body {
 }
 
 .skeleton {
-  background: linear-gradient(90deg, #151d33 25%, #1e2942 50%, #151d33 75%);
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s infinite;
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%, 100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }

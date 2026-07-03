@@ -1,0 +1,11 @@
+.bar {
+  overflow: hidden; margin-bottom: 2.5rem; padding: 0.85rem 0;
+  border-block: 1px solid var(--border);
+  mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+}
+.track { display: flex; width: max-content; animation: marquee 28s linear infinite; }
+.item {
+  flex-shrink: 0; padding: 0 1.75rem; font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+}
+.item::before { content: '◆'; margin-right: 0.75rem; color: var(--primary); font-size: 0.55rem; vertical-align: middle; }

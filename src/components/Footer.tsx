@@ -1,35 +1,27 @@
-import { ComponentPropsWithoutRef } from "react";
-import styles from "./Footer.module.css";
+import { ComponentPropsWithoutRef } from 'react';
+import Link from 'next/link';
+import styles from './Footer.module.css';
 
-export default function Footer({ className, ...props }: ComponentPropsWithoutRef<"footer">) {
-    return (
-        <footer className={`${styles.footerWrapper} ${className}`} {...props}>
-            <div className={styles.container}>
-                <div className={styles.footerCard}>
-
-                    {/* Top Content: Brand Only */}
-                    <div className={styles.topSection}>
-                        <div className={styles.brandSection}>
-                            <p className={styles.brandTextWrapper}>
-                                <span className={styles.brandTitle}>
-                                    NovaMart
-                                </span>
-                                <span className={styles.brandDesc}>
-                                    &nbsp;
-                                    A futuristic 3D e-commerce experience — inspect products in full WebGL before you buy. Built with Next.js and React Three Fiber.
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className={styles.divider}></div>
-
-                    {/* Bottom Content: Copyright Only */}
-                    <div className={styles.bottomSection}>
-                        <p>© {new Date().getFullYear()} NovaMart · Enhanced by <a href="https://github.com/almightymoon" style={{ color: 'var(--primary)' }}>almightymoon</a></p>
-                    </div>
-                </div>
+export default function Footer({ className, ...props }: ComponentPropsWithoutRef<'footer'>) {
+  return (
+    <footer className={`${styles.footer} ${className ?? ''}`} {...props}>
+      <div className="container">
+        <div className={styles.card}>
+          <div className={styles.top}>
+            <div>
+              <p className={styles.brand}>NovaMart</p>
+              <p className={styles.tagline}>Immersive 3D commerce built with Next.js, React Three Fiber, and real GLB assets.</p>
             </div>
-        </footer>
-    );
+            <div className={styles.links}>
+              <Link href="/">Shop</Link>
+              <Link href="/showcase">Showcase</Link>
+              <Link href="https://github.com/almightymoon/3d-ecommerce-shop">GitHub</Link>
+            </div>
+          </div>
+          <div className={styles.divider} />
+          <p className={styles.copy}>© {new Date().getFullYear()} NovaMart · Crafted by <Link href="https://github.com/almightymoon">almightymoon</Link></p>
+        </div>
+      </div>
+    </footer>
+  );
 }
